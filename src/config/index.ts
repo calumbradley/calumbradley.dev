@@ -6,18 +6,14 @@ export const SITE_CONFIG: SiteConfig = {
   description:
     "Software Engineer based in Cheshire, Uk. I specialize in UI design, web application development and maintenance.",
   lang: "en",
-  siteLogo: "/alejandro-small.jpg",
+  siteLogo: "/calum-small.png",
   navLinks: [
     { text: "Experience", href: "#experience" },
-    { text: "Projects", href: "#projects" },
     { text: "About", href: "#about" },
   ],
   socialLinks: [
-    { text: "Twitter", href: "https://github.com/immois/astro-zen" },
     { text: "LinkedIn", href: "https://github.com/immois/astro-zen" },
     { text: "Github", href: "https://github.com/immois/astro-zen" },
-    { text: "Youtube", href: "https://github.com/immois/astro-zen" },
-    { text: "Dribbble", href: "https://github.com/immois/astro-zen" },
   ],
   socialImage: "/zen-og.png",
   canonicalURL: "https://astro-zen.vercel.app",
@@ -29,19 +25,9 @@ export const SITE_CONTENT: SiteContent = {
     specialty: "Full Stack & DevOps Developer",
     summary:
       "Developer based in Cheshire, UK with over a decade of experience building and running production systems. I work across full stack JavaScript, SQL databases and DevOps tooling to ship reliable software.",
-    email: "",
+    email: "cal@calumbradley.dev",
   },
   experience: [
-    {
-      company: "Barclays Bank",
-      position: "SQL Database Analyst",
-      startDate: "Aug 2020",
-      endDate: "Aug 2022",
-      summary: [
-        "Led the design and optimisation of SQL-based reporting and transactional systems, improving reliability and performance for business-critical banking applications.",
-        "Collaborated closely with developers and stakeholders to translate complex data requirements into dependable, well-documented solutions.",
-      ],
-    },
     {
       company: "Barclays Bank",
       position: "Full Stack & DevOps Developer",
@@ -50,6 +36,16 @@ export const SITE_CONTENT: SiteContent = {
       summary: [
         "Build and maintain full stack JavaScript applications using React, Node.js and modern tooling to support internal teams and customer-facing journeys.",
         "Help shape DevOps practices around Git, GitLab CI/CD and automation, enabling teams to ship changes more frequently and with greater confidence.",
+      ],
+    },
+    {
+      company: "Barclays Bank",
+      position: "SQL Database Analyst",
+      startDate: "Aug 2020",
+      endDate: "Aug 2022",
+      summary: [
+        "Led the design and optimisation of SQL-based reporting and transactional systems, improving reliability and performance for business-critical banking applications.",
+        "Collaborated closely with developers and stakeholders to translate complex data requirements into dependable, well-documented solutions.",
       ],
     },
     {
@@ -67,10 +63,8 @@ export const SITE_CONTENT: SiteContent = {
 
       I enjoy working with JavaScript, React, Node.js, Git and GitLab—especially where I can streamline workflows and improve reliability through automation and CI/CD pipelines. I’m comfortable moving from database queries and backend services through to front-end user interfaces.
 
-      Outside of work you’ll usually find me walking the dogs, out on the golf course or watching football. I like keeping things practical, simple and reliable—both in code and in everyday life.
+      Outside of work you’ll usually find me walking the dogs, out on the golf course or watching football. My cocker spaniel, Chester, is usually nearby whenever I’m working on something new. I like keeping things practical, simple and reliable—both in code and in everyday life.
     `,
-    image: "/alejandro-big.jpg",
+    image: "/calum-big.png",
   },
 };
-
-// #5755ff
