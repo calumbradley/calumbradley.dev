@@ -6,7 +6,7 @@ It’s built with **Next.js** and **TypeScript**, with a focus on fast performan
 
 ## 🧑‍💻 About Calum
 
-Calum Bradley is a software engineer focused on building performant, maintainable web applications and high‑quality developer experiences.
+Calum Bradley is a software engineer based in Cheshire, UK, who enjoys turning messy requirements into calm, predictable systems. He works across the full stack with JavaScript/TypeScript, React, Node.js, SQL databases and DevOps tooling, with a particular interest in automation, CI/CD and keeping production outages comfortably boring. When he’s not shipping code, he’s usually out with his cocker spaniel, Chester, or trying to convince his golf handicap to go the right way.
 
 This site includes:
 
@@ -15,8 +15,6 @@ This site includes:
 - Contact and social links
 
 ## 🚀 Getting Started
-
-Clone the repo and install dependencies:
 
 ```bash
 git clone https://github.com/calumbradley/calumbradley.dev.git
