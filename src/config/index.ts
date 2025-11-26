@@ -49,14 +49,6 @@ export const SITE_CONTENT: SiteContent = {
         "Collaborated closely with developers and stakeholders to translate complex data requirements into dependable, well-documented solutions.",
       ],
     },
-    {
-      company: "Waitrose",
-      position: "Supermarket Assistant",
-      startDate: "Aug 2009",
-      endDate: "Sep 2014",
-      summary:
-        "Provided front-line customer service and day-to-day store support, developing strong communication skills, attention to detail and a reliable work ethic.",
-    },
   ],
   about: {
     description: [
