@@ -59,13 +59,11 @@ export const SITE_CONTENT: SiteContent = {
     },
   ],
   about: {
-    description: `
-      Hi, I’m Calum Bradley, a Full Stack and DevOps Developer with over 11 years’ experience at Barclays Bank. I’ve worked across SQL database analysis, application development and DevOps, helping to design, build and support systems that people rely on every day.
-
-      I enjoy working with JavaScript, React, Node.js, Git and GitLab—especially where I can streamline workflows and improve reliability through automation and CI/CD pipelines. I’m comfortable moving from database queries and backend services through to front-end user interfaces.
-
-      Outside of work you’ll usually find me walking the dogs, out on the golf course or watching football. My cocker spaniel, Chester, is usually nearby whenever I’m working on something new. I like keeping things practical, simple and reliable—both in code and in everyday life.
-    `,
+    description: [
+      "Hi, I’m Calum Bradley, a Full Stack and DevOps Developer with over 11 years’ experience at Barclays Bank. I’ve worked across SQL database analysis, application development and DevOps, helping to design, build and support systems that people rely on every day.",
+      "I enjoy working with JavaScript, React, Node.js, Git and GitLab—especially where I can streamline workflows and improve reliability through automation and CI/CD pipelines. I’m comfortable moving from database queries and backend services through to front-end user interfaces.",
+      "Outside of work you’ll usually find me walking the dogs, out on the golf course or watching football. My cocker spaniel, Chester, is usually nearby whenever I’m working on something new. I like keeping things practical, simple and reliable—both in code and in everyday life.",
+    ],
     image: "/calum-big.png",
   },
   contact: {

@@ -39,7 +39,7 @@ export interface ProjectProps {
 }
 
 export interface AboutProps {
-  description: string;
+  description: string | string[];
   image: string;
 }
 
