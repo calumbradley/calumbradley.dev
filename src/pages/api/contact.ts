@@ -22,13 +22,17 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   const transporter = nodemailer.createTransport({
-    host: import.meta.env.MAILEROO_SMTP_HOST ?? "smtp.maileroo.com",
-    port: Number(import.meta.env.MAILEROO_SMTP_PORT ?? 465),
-    secure: (import.meta.env.MAILEROO_SMTP_SECURE ?? "true") === "true",
+    host: process.env.MAILEROO_SMTP_HOST || "smtp.maileroo.com",
+    port: Number(process.env.MAILEROO_SMTP_PORT || 587),
+    secure: false, // use STARTTLS
     auth: {
-      user: import.meta.env.MAILEROO_SMTP_USER,
-      pass: import.meta.env.MAILEROO_SMTP_PASS,
+      user: process.env.MAILEROO_SMTP_USER,
+      pass: process.env.MAILEROO_SMTP_PASS,
     },
+    // bump timeouts a little for serverless cold starts
+    connectionTimeout: 15000,
+    greetingTimeout: 15000,
+    socketTimeout: 15000,
   });
 
   const subject = `New contact from ${name}`.slice(0, 255);
