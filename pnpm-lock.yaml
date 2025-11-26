@@ -23,9 +23,9 @@ importers:
       astro:
         specifier: ^5.14.4
         version: 5.16.1(@types/node@24.10.1)(@vercel/functions@2.2.13)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.53.3)(typescript@5.9.3)(yaml@2.8.1)
-      nodemailer:
-        specifier: ^7.0.11
-        version: 7.0.11
+      maileroo-sdk:
+        specifier: ^1.0.1
+        version: 1.0.1
       tailwindcss:
         specifier: ^4.1.12
         version: 4.1.17
@@ -1432,6 +1432,10 @@ packages:
   magicast@0.5.1:
     resolution: {integrity: sha512-xrHS24IxaLrvuo613F719wvOIv9xPHFWQHuvGUBmPnCA/3MQxKI3b+r7n1jAoDHmsbC5bRhTZYR77invLAxVnw==}
 
+  maileroo-sdk@1.0.1:
+    resolution: {integrity: sha512-8Ij/neVnbIq6Fwb4mIHBPg/Ui+S//lF/noxEOUyuM7CO4us66a8O4T0BqaVlNydLdsl6J4dQdUOz+Re6KFM9pQ==}
+    engines: {node: '>=18.0.0'}
+
   markdown-table@3.0.4:
     resolution: {integrity: sha512-wiYz4+JrLyb/DqW2hkFJxP7Vd7JuTDm77fvbM8VfEQdmSMqcImWeeRbHwZjBjIFki/VaMK2BhFi7oUUZeM5bqw==}
 
@@ -1624,10 +1628,6 @@ packages:
 
   node-mock-http@1.0.3:
     resolution: {integrity: sha512-jN8dK25fsfnMrVsEhluUTPkBFY+6ybu7jSB1n+ri/vOGjJxU8J9CZhpSGkHXSkFjtUhbmoncG/YG9ta5Ludqog==}
-
-  nodemailer@7.0.11:
-    resolution: {integrity: sha512-gnXhNRE0FNhD7wPSCGhdNh46Hs6nm+uTyg+Kq0cZukNQiYdnCsoQjodNP9BQVG9XrcK/v6/MgpAPBUFyzh9pvw==}
-    engines: {node: '>=6.0.0'}
 
   nopt@9.0.0:
     resolution: {integrity: sha512-Zhq3a+yFKrYwSBluL4H9XP3m3y5uvQkB/09CwDruCiRmR/UJYnn9W4R48ry0uGC70aeTPKLynBtscP9efFFcPw==}
@@ -3802,6 +3802,8 @@ snapshots:
       '@babel/types': 7.28.5
       source-map-js: 1.2.1
 
+  maileroo-sdk@1.0.1: {}
+
   markdown-table@3.0.4: {}
 
   mdast-util-definitions@6.0.0:
@@ -4159,8 +4161,6 @@ snapshots:
   node-gyp-build@4.8.4: {}
 
   node-mock-http@1.0.3: {}
-
-  nodemailer@7.0.11: {}
 
   nopt@9.0.0:
     dependencies:
