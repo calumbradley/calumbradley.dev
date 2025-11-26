@@ -16,8 +16,8 @@ export const SITE_CONFIG: SiteConfig = {
     { text: "LinkedIn", href: "https://uk.linkedin.com/in/calumbradley" },
     { text: "Github", href: "https://github.com/calumbradley" },
   ],
-  socialImage: "/zen-og.png",
-  canonicalURL: "https://astro-zen.vercel.app",
+  socialImage: "/og-calum.svg",
+  canonicalURL: "https://calumbradley.dev",
 };
 
 // Compute number of full years since September 2014.
