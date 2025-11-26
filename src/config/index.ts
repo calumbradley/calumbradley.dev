@@ -20,6 +20,23 @@ export const SITE_CONFIG: SiteConfig = {
   canonicalURL: "https://astro-zen.vercel.app",
 };
 
+// Compute number of full years since September 2014.
+// This returns an integer like 11, 12, etc., and increments automatically as time passes.
+function yearsSinceSep2014(): number {
+  const startYear = 2014;
+  const startMonth = 8; // September (0 = January)
+  const now = new Date();
+
+  // total months difference from start to now
+  const months =
+    (now.getFullYear() - startYear) * 12 + (now.getMonth() - startMonth);
+
+  // convert months to full years
+  return Math.floor(Math.max(0, months) / 12);
+}
+
+const YEARS_AT_BARCLAYS = yearsSinceSep2014();
+
 export const SITE_CONTENT: SiteContent = {
   hero: {
     name: "Calum Bradley",
@@ -49,10 +66,20 @@ export const SITE_CONTENT: SiteContent = {
         "Collaborated closely with developers and stakeholders to translate complex data requirements into dependable, well-documented solutions.",
       ],
     },
+    {
+      company: "Barclays Bank",
+      position: "Corporate Client Analyst",
+      startDate: "Aug 2020",
+      endDate: "Sep 2014",
+      summary: [
+        "Supported corporate clients with SFTP file-transfer integrations and XML payload processing for corporate payments, settlements and periodic reporting; built secure ingestion and validation pipelines.",
+        "Defined file-specs and payment/reporting requirements with payments, treasury and ops teams, implemented reconciliation and monitoring, and produced clear documentation and runbooks for handover.",
+      ],
+    },
   ],
   about: {
     description: [
-      "Hi, I’m Calum Bradley, a Full Stack and DevOps Developer with over 11 years’ experience at Barclays Bank. I’ve worked across SQL database analysis, application development and DevOps, helping to design, build and support systems that people rely on every day.",
+      `Hi, I’m Calum Bradley, a Full Stack and DevOps Developer with over ${YEARS_AT_BARCLAYS} years' experience at Barclays Bank.`,
       "I enjoy working with JavaScript, React, Node.js, Git and GitLab—especially where I can streamline workflows and improve reliability through automation and CI/CD pipelines. I’m comfortable moving from database queries and backend services through to front-end user interfaces.",
       "Outside of work you’ll usually find me walking the dogs, out on the golf course or watching football. My cocker spaniel, Chester, is usually nearby whenever I’m working on something new. I like keeping things practical, simple and reliable—both in code and in everyday life.",
     ],
