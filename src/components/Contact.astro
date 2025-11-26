@@ -13,7 +13,12 @@ const { title, description } = Astro.props;
       {description}
     </p>
 
-    <form id="contact-form" class="w-full space-y-4 md:w-1/2" method="POST" action="/api/contact">
+    <form
+      id="contact-form"
+      class="w-full space-y-4 md:w-1/2"
+      method="POST"
+      action="/api/contact"
+    >
       <div class="flex flex-col gap-1">
         <label for="name" class="text-sm font-medium text-white"> Name </label>
         <input
@@ -57,59 +62,65 @@ const { title, description } = Astro.props;
       >
         Send Message
       </button>
-      <div id="contact-status" class="mt-2 text-sm" role="status" aria-live="polite"></div>
+      <div
+        id="contact-status"
+        class="mt-2 text-sm"
+        role="status"
+        aria-live="polite"
+      >
+      </div>
     </form>
   </div></Section
 >
 
 <script type="module">
-  const form = document.getElementById('contact-form');
-  const statusEl = document.getElementById('contact-status');
+  const form = document.getElementById("contact-form");
+  const statusEl = document.getElementById("contact-status");
   if (form) {
     const submitBtn = form.querySelector('button[type="submit"]');
-    const originalBtnText = submitBtn?.textContent || 'Send Message';
+    const originalBtnText = submitBtn?.textContent || "Send Message";
 
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const name = form.querySelector('#name')?.value || '';
-      const email = form.querySelector('#email')?.value || '';
-      const message = form.querySelector('#message')?.value || '';
+      const name = form.querySelector("#name")?.value || "";
+      const email = form.querySelector("#email")?.value || "";
+      const message = form.querySelector("#message")?.value || "";
 
       if (!name || !email || !message) {
-        statusEl.textContent = 'Please fill out all fields.';
-        statusEl.className = 'mt-2 text-sm text-yellow-300';
+        statusEl.textContent = "Please fill out all fields.";
+        statusEl.className = "mt-2 text-sm text-yellow-300";
         return;
       }
 
       try {
         if (submitBtn) {
           submitBtn.disabled = true;
-          submitBtn.textContent = 'Sending...';
+          submitBtn.textContent = "Sending...";
         }
 
-        statusEl.textContent = '';
+        statusEl.textContent = "";
 
-        const res = await fetch('/api/contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+        const res = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ name, email, message }),
         });
 
         const payload = await res.json().catch(() => ({}));
 
         if (res.ok && payload.ok) {
-          statusEl.textContent = 'Message sent — thanks!';
-          statusEl.className = 'mt-2 text-sm text-green-400';
+          statusEl.textContent = "Message sent — thanks!";
+          statusEl.className = "mt-2 text-sm text-green-400";
           form.reset();
         } else {
-          const err = payload.error || 'Failed to send message.';
+          const err = payload.error || "Failed to send message.";
           statusEl.textContent = err;
-          statusEl.className = 'mt-2 text-sm text-red-400';
+          statusEl.className = "mt-2 text-sm text-red-400";
         }
       } catch (err) {
-        statusEl.textContent = 'Server error. Please try again later.';
-        statusEl.className = 'mt-2 text-sm text-red-400';
+        statusEl.textContent = "Server error. Please try again later.";
+        statusEl.className = "mt-2 text-sm text-red-400";
       } finally {
         if (submitBtn) {
           submitBtn.disabled = false;
@@ -118,8 +129,8 @@ const { title, description } = Astro.props;
 
         // remove the status message after a short delay
         setTimeout(() => {
-          statusEl.textContent = '';
-          statusEl.className = 'mt-2 text-sm';
+          statusEl.textContent = "";
+          statusEl.className = "mt-2 text-sm";
         }, 6000);
       }
     });
