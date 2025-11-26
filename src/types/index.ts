@@ -12,6 +12,7 @@ export interface SiteContent {
   hero: HeroProps;
   experience: ExperienceProps[];
   about: AboutProps;
+  contact: ContactProps;
 }
 
 export interface HeroProps {
@@ -40,6 +41,11 @@ export interface ProjectProps {
 export interface AboutProps {
   description: string;
   image: string;
+}
+
+export interface ContactProps {
+  title: string;
+  description: string;
 }
 
 export interface HeaderProps {

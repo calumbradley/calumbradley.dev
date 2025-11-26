@@ -10,6 +10,7 @@ export const SITE_CONFIG: SiteConfig = {
   navLinks: [
     { text: "Experience", href: "#experience" },
     { text: "About", href: "#about" },
+    { text: "Contact", href: "#contact" },
   ],
   socialLinks: [
     { text: "LinkedIn", href: "https://uk.linkedin.com/in/calumbradley" },
@@ -66,5 +67,10 @@ export const SITE_CONTENT: SiteContent = {
       Outside of work you’ll usually find me walking the dogs, out on the golf course or watching football. My cocker spaniel, Chester, is usually nearby whenever I’m working on something new. I like keeping things practical, simple and reliable—both in code and in everyday life.
     `,
     image: "/calum-big.png",
+  },
+  contact: {
+    title: "Contact",
+    description:
+      "If you’d like to talk about a project, role or just say hello, drop me a message below.",
   },
 };

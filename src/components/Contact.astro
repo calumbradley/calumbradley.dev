@@ -1,0 +1,127 @@
+---
+import Section from "./Section.astro";
+import type { ContactProps } from "@types";
+
+type Props = ContactProps;
+
+const { title, description } = Astro.props;
+---
+
+<Section text={title} href="contact">
+  <div class="flex flex-col gap-8 md:flex-row md:items-start md:gap-10">
+    <p class="w-full text-base text-neutral md:w-1/2 md:pr-5">
+      {description}
+    </p>
+
+    <form id="contact-form" class="w-full space-y-4 md:w-1/2" method="POST" action="/api/contact">
+      <div class="flex flex-col gap-1">
+        <label for="name" class="text-sm font-medium text-white"> Name </label>
+        <input
+          id="name"
+          name="name"
+          type="text"
+          required
+          class="rounded-md border border-neutral bg-black px-3 py-2 text-sm text-white ring-0 transition outline-none focus:border-primary"
+        />
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label for="email" class="text-sm font-medium text-white">
+          Email
+        </label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          required
+          class="rounded-md border border-neutral bg-black px-3 py-2 text-sm text-white ring-0 transition outline-none focus:border-primary"
+        />
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label for="message" class="text-sm font-medium text-white">
+          Message
+        </label>
+        <textarea
+          id="message"
+          name="message"
+          rows="4"
+          required
+          class="resize-none rounded-md border border-neutral bg-black px-3 py-2 text-sm text-white ring-0 transition outline-none focus:border-primary"
+        ></textarea>
+      </div>
+
+      <button
+        type="submit"
+        class="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-medium text-white transition hover:opacity-90"
+      >
+        Send Message
+      </button>
+      <div id="contact-status" class="mt-2 text-sm" role="status" aria-live="polite"></div>
+    </form>
+  </div></Section
+>
+
+<script type="module">
+  const form = document.getElementById('contact-form');
+  const statusEl = document.getElementById('contact-status');
+  if (form) {
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn?.textContent || 'Send Message';
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name = form.querySelector('#name')?.value || '';
+      const email = form.querySelector('#email')?.value || '';
+      const message = form.querySelector('#message')?.value || '';
+
+      if (!name || !email || !message) {
+        statusEl.textContent = 'Please fill out all fields.';
+        statusEl.className = 'mt-2 text-sm text-yellow-300';
+        return;
+      }
+
+      try {
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Sending...';
+        }
+
+        statusEl.textContent = '';
+
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, message }),
+        });
+
+        const payload = await res.json().catch(() => ({}));
+
+        if (res.ok && payload.ok) {
+          statusEl.textContent = 'Message sent — thanks!';
+          statusEl.className = 'mt-2 text-sm text-green-400';
+          form.reset();
+        } else {
+          const err = payload.error || 'Failed to send message.';
+          statusEl.textContent = err;
+          statusEl.className = 'mt-2 text-sm text-red-400';
+        }
+      } catch (err) {
+        statusEl.textContent = 'Server error. Please try again later.';
+        statusEl.className = 'mt-2 text-sm text-red-400';
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalBtnText;
+        }
+
+        // remove the status message after a short delay
+        setTimeout(() => {
+          statusEl.textContent = '';
+          statusEl.className = 'mt-2 text-sm';
+        }, 6000);
+      }
+    });
+  }
+</script>
