@@ -1,7 +1,7 @@
 import type { SiteConfig, SiteContent } from "../types";
 
 export const SITE_CONFIG: SiteConfig = {
-  title: "Calum Bradley — Web Developer",
+  title: "Calum Bradley — Lead Full Stack & DevOps Engineer",
   author: "Calum Bradley",
   description:
     "Software Engineer based in Cheshire, Uk. I specialize in UI design, web application development and maintenance.",
