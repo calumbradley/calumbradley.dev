@@ -54,6 +54,11 @@ export const SITE_CONTENT: SiteContent = {
       summary: [
         "Build and maintain full stack JavaScript applications using React, Node.js and modern tooling to support internal teams and customer-facing journeys.",
         "Help shape DevOps practices around Git, GitLab CI/CD and automation, enabling teams to ship changes more frequently and with greater confidence.",
+        "Partner with product, delivery and operational stakeholders to clarify requirements, manage expectations, and communicate trade-offs and delivery risks early.",
+        "Influence team roadmaps by breaking down initiatives into pragmatic milestones, prioritising work based on impact, and reducing technical risk through early validation.",
+        "Raise engineering standards via constructive code reviews, shared patterns, and lightweight documentation that improves consistency across the team.",
+        "Support and mentor junior colleagues through pairing, guidance on best practices, and helping unblock work while encouraging ownership and growth.",
+        "Coordinate with adjacent teams to align dependencies, improve integration points, and reduce friction across handovers and release activities.",
       ],
     },
     {
