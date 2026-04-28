@@ -1,6 +1,9 @@
 # build output
 dist/
 
+# vercel build output (never commit – Vercel builds this automatically)
+.vercel/
+
 # generated types
 .astro/
 
