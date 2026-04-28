@@ -19,6 +19,15 @@ const { title, description } = Astro.props;
       method="POST"
       action="/api/contact"
     >
+      {/* Honeypot: visually hidden, filled only by bots */}
+      <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;tab-index:-1;">
+        <label for="website">Website</label>
+        <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+      </div>
+
+      {/* Submission timestamp: set by JS on page load for timing checks */}
+      <input type="hidden" id="form-ts" name="_t" value="" />
+
       <div class="rounded-lg bg-transparent p-6 shadow-sm md:p-8">
         <div class="space-y-4">
           <div>
@@ -75,6 +84,10 @@ const { title, description } = Astro.props;
   const form = document.getElementById("contact-form");
   const statusEl = document.getElementById("contact-status");
   if (form) {
+    // Record the time the form was loaded for server-side timing checks
+    const tsField = form.querySelector("#form-ts");
+    if (tsField) tsField.value = String(Date.now());
+
     const submitBtn = form.querySelector('button[type="submit"]');
     const originalBtnText = submitBtn?.textContent || "Send Message";
 
@@ -84,6 +97,9 @@ const { title, description } = Astro.props;
       const name = form.querySelector("#name")?.value || "";
       const email = form.querySelector("#email")?.value || "";
       const message = form.querySelector("#message")?.value || "";
+      // Bot-protection fields included in every request
+      const honeypot = form.querySelector("#website")?.value || "";
+      const formTs = form.querySelector("#form-ts")?.value || "";
 
       if (!name || !email || !message) {
         statusEl.textContent = "Please fill out all fields.";
@@ -102,7 +118,7 @@ const { title, description } = Astro.props;
         const res = await fetch("/api/contact", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, email, message }),
+          body: JSON.stringify({ name, email, message, website: honeypot, _t: formTs }),
         });
 
         const payload = await res.json().catch(() => ({}));

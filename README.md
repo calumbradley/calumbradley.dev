@@ -38,6 +38,26 @@ pnpm install
 - Tailwind CSS (if applicable)
 - Vercel (deployment)
 
+## 📬 Contact form
+
+The contact form at `/api/contact` is protected against common spam and automated submissions by built-in server-side checks with no third-party CAPTCHA dependency:
+
+| Check | Detail |
+| :---- | :----- |
+| **Honeypot** | A hidden `website` field is rendered off-screen. Any non-empty value is rejected. |
+| **Timing** | A `_t` timestamp is embedded when the page loads. Submissions arriving in under 3 seconds or more than 60 minutes after page load are rejected. |
+| **Field length** | Name ≤ 100 chars, email ≤ 254 chars, message ≤ 5 000 chars. |
+
+These checks run before any email is dispatched via Maileroo. The thresholds (`MIN_SUBMIT_MS`, `MAX_SUBMIT_MS`, field caps) can be adjusted in `src/pages/api/contact.ts`.
+
+### Required environment variables
+
+| Variable | Description |
+| :------- | :---------- |
+| `MAILEROO_API_KEY` | Maileroo API key |
+| `MAILEROO_FROM` | Sender address, e.g. `"Display Name <from@example.com>"` |
+| `CONTACT_EMAIL` | Recipient address for contact messages |
+
 ## 📄 License
 
 Code in this repository is provided under your chosen license (update this section as needed).

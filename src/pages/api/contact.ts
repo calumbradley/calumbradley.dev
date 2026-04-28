@@ -15,23 +15,62 @@ export const POST: APIRoute = async ({ request }) => {
 
   let name = "",
     email = "",
-    message = "";
+    message = "",
+    honeypot = "",
+    formTs = "";
+
   if (ct.includes("application/json")) {
     const body = await request.json().catch(() => ({}));
     name = String(body.name ?? "").trim();
     email = String(body.email ?? "").trim();
     message = String(body.message ?? "").trim();
+    honeypot = String(body.website ?? "").trim();
+    formTs = String(body._t ?? "").trim();
   } else {
     const fd = await request.formData().catch(() => new FormData());
     name = String(fd.get("name") ?? "").trim();
     email = String(fd.get("email") ?? "").trim();
     message = String(fd.get("message") ?? "").trim();
+    honeypot = String(fd.get("website") ?? "").trim();
+    formTs = String(fd.get("_t") ?? "").trim();
+  }
+
+  // Reject if honeypot field was filled (bot signal)
+  if (honeypot) {
+    return new Response(
+      JSON.stringify({ ok: false, error: "Invalid submission" }),
+      { status: 400 },
+    );
+  }
+
+  // Reject if submission timing is outside the acceptable window
+  const MIN_SUBMIT_MS = 3_000;      // < 3 s = bot too fast
+  const MAX_SUBMIT_MS = 3_600_000;  // > 60 min = stale / automated replay
+  if (formTs) {
+    const loadTime = parseInt(formTs, 10);
+    if (!isNaN(loadTime)) {
+      const elapsed = Date.now() - loadTime;
+      if (elapsed < MIN_SUBMIT_MS || elapsed > MAX_SUBMIT_MS) {
+        return new Response(
+          JSON.stringify({ ok: false, error: "Invalid submission" }),
+          { status: 400 },
+        );
+      }
+    }
   }
 
   // Minimal validation
   if (!name || !email || !message) {
     return new Response(
       JSON.stringify({ ok: false, error: "Missing fields" }),
+      { status: 400 },
+    );
+  }
+
+  // Reject oversized inputs
+  if (name.length > 100 || email.length > 254 || message.length > 5000) {
+    return new Response(
+      JSON.stringify({ ok: false, error: "Input too long" }),
       { status: 400 },
     );
   }
