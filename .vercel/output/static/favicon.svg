@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+    <!-- Background circle -->
+    <circle cx="64" cy="64" r="56" class="bg" />
+
+    <!-- Stylised "C" -->
+    <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central"
+        font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="80"
+        font-weight="800" letter-spacing="-4" class="glyph">
+        C
+    </text>
+
+    <style>
+        .bg {
+            fill: #f3f3f3;
+        }
+
+        .glyph {
+            fill: #111;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .bg {
+                fill: #111;
+            }
+
+            .glyph {
+                fill: #f9f9f9;
+            }
+        }
+    </style>
+</svg>

@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img"
+    aria-labelledby="title desc">
+    <!-- Title and description for accessibility -->
+    <title id="title">Calum Bradley — Web Developer</title>
+    <desc id="desc">Social card for Calum Bradley, Full Stack & DevOps Developer. Website: calumbradley.dev</desc>
+
+    <!-- Definitions: gradient and subtle drop shadow -->
+    <defs>
+        <!-- background gradient -->
+        <linearGradient id="bgGrad" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0" stop-color="#0f172a" stop-opacity="1" />
+            <stop offset="1" stop-color="#071133" stop-opacity="1" />
+        </linearGradient>
+
+        <!-- accent gradient for left panel -->
+        <linearGradient id="accent" x1="0" x2="1">
+            <stop offset="0" stop-color="#06b6d4" />
+            <stop offset="1" stop-color="#06b6d4" stop-opacity="0.9" />
+        </linearGradient>
+
+        <!-- subtle drop shadow for the initials circle -->
+        <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+            <feDropShadow dx="0" dy="10" stdDeviation="18" flood-color="#000" flood-opacity="0.35" />
+        </filter>
+    </defs>
+
+    <!-- Background -->
+    <rect width="1200" height="630" fill="url(#bgGrad)" />
+
+    <!-- Left accent panel (visual anchor) -->
+    <rect x="60" y="60" width="420" height="510" rx="24" fill="rgba(255,255,255,0.04)" />
+
+    <!-- Initials circle with shadow -->
+    <g transform="translate(200,210)">
+        <!-- circle background -->
+        <circle cx="0" cy="0" r="96" fill="url(#accent)" filter="url(#shadow)" />
+        <!-- initials text -->
+        <text x="0" y="24" text-anchor="middle" fill="#041022"
+            font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial" font-weight="700"
+            font-size="72">
+            CB
+        </text>
+    </g>
+
+    <!-- Name and role -->
+    <!-- Large name text on the right area -->
+    <g transform="translate(520,200)">
+        <!-- name -->
+        <text x="0" y="0" fill="#ffffff"
+            font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial" font-weight="800"
+            font-size="64" letter-spacing="-1">
+            Calum Bradley
+        </text>
+
+        <!-- small spacer -->
+        <!-- role / specialty -->
+        <text x="0" y="74" fill="#cbd5e1"
+            font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial" font-weight="600"
+            font-size="26">
+            Full Stack & DevOps Developer
+        </text>
+
+        <!-- short summary line -->
+        <text x="0" y="120" fill="#94a3b8"
+            font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial" font-size="18"
+            font-weight="400">
+            Developer based in Cheshire, UK — calumbradley.dev
+        </text>
+    </g>
+
+    <!-- bottom-right decorative URL badge -->
+    <g transform="translate(520,470)">
+        <rect x="0" y="-28" rx="8" ry="8" width="540" height="48" fill="rgba(255,255,255,0.04)" />
+        <text x="16" y="8" fill="#93c5fd"
+            font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial" font-size="18"
+            font-weight="600">
+            calumbradley.dev
+        </text>
+    </g>
+
+    <!-- subtle top-right decorative dots (visual interest) -->
+    <g transform="translate(1060,80)" fill="#0ea5a4" opacity="0.08">
+        <circle cx="0" cy="0" r="6" />
+        <circle cx="22" cy="0" r="6" />
+        <circle cx="44" cy="0" r="6" />
+        <circle cx="0" cy="22" r="6" />
+        <circle cx="22" cy="22" r="6" />
+        <circle cx="44" cy="22" r="6" />
+    </g>
+</svg>
