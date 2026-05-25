@@ -2,9 +2,11 @@
 
 @theme {
   --font-sans: "Be Vietnam Pro", system-ui, sans-serif;
-  --font-serif: "Gabarito Variable", ui-serif, serif;
+  /* Gabarito is a rounded display font, not a traditional serif */
+  --font-display: "Gabarito Variable", ui-serif, serif;
 
-  --color-primary: #2563eb;
+  --color-primary: #3b82f6;       /* blue-500 — ~5:1 contrast on dark bg, WCAG AA */
+  --color-primary-hover: #2563eb; /* blue-600 — darker shade for hover states */
   --color-neutral: #94a3b8;
   --color-white: #e2e8f0;
   --color-black: #0e141b;
@@ -43,7 +45,7 @@
   --animate-slide-in: slide-in 600ms ease both;
 
   @keyframes slide-in {
-    10% {
+    0% {
       transform: translateY(-100%);
     }
     100% {
