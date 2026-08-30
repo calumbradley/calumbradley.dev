@@ -19,6 +19,9 @@ terraform {
   # }
 }
 
-# Auth comes from the CLOUDFLARE_API_TOKEN env var so the token never lands in
-# a .tfvars file or in state. Token needs: Account > Turnstile > Edit.
-provider "cloudflare" {}
+# Token is scoped to this project directory via terraform.tfvars (gitignored),
+# so a token for another site can never be picked up by mistake. Leave the
+# variable unset to fall back to the CLOUDFLARE_API_TOKEN env var instead.
+provider "cloudflare" {
+  api_token = var.cloudflare_api_token
+}

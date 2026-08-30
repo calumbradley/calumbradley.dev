@@ -1,8 +1,14 @@
-# Copy to terraform.tfvars and fill in.
-# Account ID: Cloudflare dashboard -> any domain -> right sidebar -> Account ID
+# Copy this file to terraform.tfvars and fill in both values.
+# terraform.tfvars is gitignored and Terraform loads it automatically.
+
+# The token you just created (Account > Turnstile > Edit)
+cloudflare_api_token = ""
+
+# Account ID: the 32-character hex string in your dashboard URL,
+# i.e. https://dash.cloudflare.com/<this-bit>
 cloudflare_account_id = ""
 
-# Uncomment to override defaults:
+# Optional overrides — defaults are fine:
 # widget_name = "calumbradley.dev contact form"
 # domains     = ["calumbradley.dev"]
 # mode        = "managed"
