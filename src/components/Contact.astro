@@ -5,7 +5,24 @@ import type { ContactProps } from "@types";
 type Props = ContactProps;
 
 const { title, description } = Astro.props;
+
+// Public Turnstile site key. Empty locally = widget is skipped so dev still works.
+const TURNSTILE_SITE_KEY =
+  import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ??
+  process.env.PUBLIC_TURNSTILE_SITE_KEY ??
+  "";
 ---
+
+{
+  TURNSTILE_SITE_KEY && (
+    <script
+      is:inline
+      async
+      defer
+      src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+    />
+  )
+}
 
 <Section text={title} href="contact">
   <div class="flex flex-col gap-8">
@@ -63,6 +80,16 @@ const { title, description } = Astro.props;
             ></textarea>
           </div>
 
+          {
+            TURNSTILE_SITE_KEY && (
+              <div
+                class="cf-turnstile pt-2"
+                data-sitekey={TURNSTILE_SITE_KEY}
+                data-theme="dark"
+              />
+            )
+          }
+
           <div class="flex items-center justify-between pt-2">
             <button
               type="submit"
@@ -100,9 +127,18 @@ const { title, description } = Astro.props;
       // Bot-protection fields included in every request
       const honeypot = form.querySelector("#website")?.value || "";
       const formTs = form.querySelector("#form-ts")?.value || "";
+      // Turnstile injects this hidden input into the form once solved
+      const turnstileToken =
+        form.querySelector('[name="cf-turnstile-response"]')?.value || "";
 
       if (!name || !email || !message) {
         statusEl.textContent = "Please fill out all fields.";
+        statusEl.className = "mt-2 text-sm text-yellow-300";
+        return;
+      }
+
+      if (form.querySelector(".cf-turnstile") && !turnstileToken) {
+        statusEl.textContent = "Please complete the verification check.";
         statusEl.className = "mt-2 text-sm text-yellow-300";
         return;
       }
@@ -118,7 +154,14 @@ const { title, description } = Astro.props;
         const res = await fetch("/api/contact", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, email, message, website: honeypot, _t: formTs }),
+          body: JSON.stringify({
+            name,
+            email,
+            message,
+            website: honeypot,
+            _t: formTs,
+            "cf-turnstile-response": turnstileToken,
+          }),
         });
 
         const payload = await res.json().catch(() => ({}));
@@ -140,6 +183,9 @@ const { title, description } = Astro.props;
           submitBtn.disabled = false;
           submitBtn.textContent = originalBtnText;
         }
+
+        // Turnstile tokens are single-use, so issue a fresh one for the next try
+        window.turnstile?.reset();
 
         // remove the status message after a short delay
         setTimeout(() => {
