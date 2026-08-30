@@ -3,6 +3,29 @@ import { MailerooClient, EmailAddress } from "maileroo-sdk";
 
 export const prerender = false;
 
+const TURNSTILE_VERIFY_URL =
+  "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+
+type TurnstileVerifyResponse = {
+  success: boolean;
+  "error-codes"?: string[];
+  challenge_ts?: string;
+  hostname?: string;
+};
+
+async function verifyTurnstile(token: string, secret: string) {
+  const body = new URLSearchParams({ secret, response: token });
+
+  const res = await fetch(TURNSTILE_VERIFY_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body,
+    signal: AbortSignal.timeout(10_000),
+  });
+
+  return (await res.json()) as TurnstileVerifyResponse;
+}
+
 function parseEmailObject(raw = "") {
   // Accept formats like: "Display Name <address@example.com>" or "address@example.com"
   const m = String(raw).match(/^\s*(.+?)\s*<\s*([^>]+)\s*>\s*$/);
@@ -17,7 +40,8 @@ export const POST: APIRoute = async ({ request }) => {
     email = "",
     message = "",
     honeypot = "",
-    formTs = "";
+    formTs = "",
+    turnstileToken = "";
 
   if (ct.includes("application/json")) {
     const body = await request.json().catch(() => ({}));
@@ -26,6 +50,9 @@ export const POST: APIRoute = async ({ request }) => {
     message = String(body.message ?? "").trim();
     honeypot = String(body.website ?? "").trim();
     formTs = String(body._t ?? "").trim();
+    turnstileToken = String(
+      body["cf-turnstile-response"] ?? body.turnstileToken ?? "",
+    ).trim();
   } else {
     const fd = await request.formData().catch(() => new FormData());
     name = String(fd.get("name") ?? "").trim();
@@ -33,6 +60,9 @@ export const POST: APIRoute = async ({ request }) => {
     message = String(fd.get("message") ?? "").trim();
     honeypot = String(fd.get("website") ?? "").trim();
     formTs = String(fd.get("_t") ?? "").trim();
+    turnstileToken = String(
+      fd.get("cf-turnstile-response") ?? fd.get("turnstileToken") ?? "",
+    ).trim();
   }
 
   // Reject if honeypot field was filled (bot signal)
@@ -72,6 +102,51 @@ export const POST: APIRoute = async ({ request }) => {
     return new Response(
       JSON.stringify({ ok: false, error: "Input too long" }),
       { status: 400 },
+    );
+  }
+
+  // Cloudflare Turnstile: verify the challenge token before doing any work.
+  // Runs after the cheap checks so obvious bots never cost us a siteverify call.
+  const TURNSTILE_SECRET_KEY =
+    import.meta.env.TURNSTILE_SECRET_KEY ?? process.env.TURNSTILE_SECRET_KEY;
+
+  if (!TURNSTILE_SECRET_KEY) {
+    // Fail closed: a missing secret must not silently disable bot protection.
+    console.error("[contact] turnstile missing TURNSTILE_SECRET_KEY");
+    return new Response(
+      JSON.stringify({ ok: false, error: "Verification unavailable" }),
+      { status: 500 },
+    );
+  }
+
+  if (!turnstileToken) {
+    return new Response(
+      JSON.stringify({ ok: false, error: "Please complete the verification." }),
+      { status: 400 },
+    );
+  }
+
+  try {
+    const verification = await verifyTurnstile(
+      turnstileToken,
+      TURNSTILE_SECRET_KEY,
+    );
+
+    if (!verification.success) {
+      console.warn("[contact] turnstile rejected", verification["error-codes"]);
+      return new Response(
+        JSON.stringify({
+          ok: false,
+          error: "Verification failed. Please try again.",
+        }),
+        { status: 400 },
+      );
+    }
+  } catch (err) {
+    console.error("[contact] turnstile verify error", err);
+    return new Response(
+      JSON.stringify({ ok: false, error: "Verification unavailable" }),
+      { status: 502 },
     );
   }
 

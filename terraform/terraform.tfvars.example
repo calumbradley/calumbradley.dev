@@ -1,0 +1,8 @@
+# Copy to terraform.tfvars and fill in.
+# Account ID: Cloudflare dashboard -> any domain -> right sidebar -> Account ID
+cloudflare_account_id = ""
+
+# Uncomment to override defaults:
+# widget_name = "calumbradley.dev contact form"
+# domains     = ["calumbradley.dev"]
+# mode        = "managed"

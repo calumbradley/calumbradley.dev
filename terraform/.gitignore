@@ -1,0 +1,11 @@
+# Local state contains the Turnstile secret in plaintext — never commit it
+*.tfstate
+*.tfstate.*
+.terraform/
+crash.log
+
+# Real variable values
+terraform.tfvars
+*.auto.tfvars
+
+# .terraform.lock.hcl IS committed on purpose - it pins provider hashes

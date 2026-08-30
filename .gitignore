@@ -28,3 +28,4 @@ pnpm-debug.log*
 
 # Ignore all dotenv files
 .env*
+!.env.example
